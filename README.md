@@ -1,4 +1,6 @@
 # hamlookup
+CQ, CQ, CQ... calling CQ... de...
+
 HamLookup FCC Amateur Radio Callbook Search
 
 Spring Framework MVC Web Application for searching the US FCC Amateur Radio Licensee database.
