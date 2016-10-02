@@ -10,26 +10,13 @@ import java.util.List;
 import org.hamlookup.web.model.PubaccCo;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class PubaccCoDAOImpl implements PubaccCoDAO {
+public class PubaccCoDAOImpl extends PubaccDAO implements PubaccCoDAO {
 	
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public PubaccCoDAOImpl() {
-		
-	}
-	
-	public PubaccCoDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	@Override
 	@Transactional
 	public List<PubaccCo> list() {

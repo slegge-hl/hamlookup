@@ -11,25 +11,13 @@ import org.hamlookup.web.model.PubaccHd;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class PubaccHdDAOImpl implements PubaccHdDAO {
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public PubaccHdDAOImpl() {
-		
-	}
+public class PubaccHdDAOImpl extends PubaccDAO implements PubaccHdDAO {
 	
-	public PubaccHdDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	@Override
 	@Transactional
 	public List<PubaccHd> list() {
@@ -69,7 +57,6 @@ public class PubaccHdDAOImpl implements PubaccHdDAO {
 		
 		return null;
 	}
-	
 
 	@Override
 	@Transactional
@@ -148,8 +135,8 @@ public class PubaccHdDAOImpl implements PubaccHdDAO {
 	@Override
 	@Transactional
 	public List<PubaccHd> findHam(PubaccHd hdRec) {
-		//Session session = sessionFactory.getCurrentSession();
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
+		//Session session = sessionFactory.openSession();
 		
 		Criteria findCrit = session.createCriteria(PubaccHd.class);
 		

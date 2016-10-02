@@ -10,21 +10,12 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.hamlookup.web.model.PubaccAm;
-import org.hamlookup.web.model.PubaccCo;
-import org.hamlookup.web.model.PubaccCoId;
-import org.hamlookup.web.model.PubaccEn;
-import org.hamlookup.web.model.PubaccHd;
-import org.hamlookup.web.model.PubaccHs;
-import org.hamlookup.web.model.PubaccHsId;
-import org.hamlookup.web.model.PubaccLa;
-import org.hamlookup.web.model.PubaccSc;
-import org.hamlookup.web.model.PubaccSf;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -73,29 +64,14 @@ public class ApplicationContextConfig extends WebMvcConfigurationSupport {
 //    	
     	return properties;
     }
-    
+        
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) {
     	LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
     	sessionBuilder.addProperties(getHibernateProperties());
-    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	// 
-    	// ADD MODEL CLASSES HERE
-    	//
-    	//
+    	sessionBuilder.scanPackages("org.hamlookup.web");
 
-    	sessionBuilder.addAnnotatedClasses(PubaccHd.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccAm.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccEn.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccCo.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccCoId.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccHs.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccHsId.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccSf.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccSc.class);
-    	sessionBuilder.addAnnotatedClasses(PubaccLa.class);
-    	
     	return sessionBuilder.buildSessionFactory();
     }
     
@@ -108,6 +84,11 @@ public class ApplicationContextConfig extends WebMvcConfigurationSupport {
 
 		return transactionManager;
 	}
+
+    @Bean(name = "persistenceExceptionTranslationPostProcessor")
+    public PersistenceExceptionTranslationPostProcessor getExceptionProcessor() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
