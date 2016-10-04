@@ -18,3 +18,7 @@ FCC Database table (only need tables contained in l_amat.zip) creation SQL avail
 Additional, general FCC Database details found here:
 
     http://wireless.fcc.gov/uls/index.htm?job=transaction&page=weekly
+
+Use Maven to compile, e.g. "mvn clean install".
+
+The resulting 'hamlookup-1.0.war' has been successfully tested on both Apache Tomcat & JBoss/WildFly. 
